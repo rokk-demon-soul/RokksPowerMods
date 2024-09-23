@@ -1,0 +1,21 @@
+## Interface: 100207, 110000
+## Title: RokksPowerMods
+## Author: Rokk
+## AddonCompartmentFunc: aba7a9aba1ec4948bdcaf04f9477363e_func
+## SavedVariables: aba7a9aba1ec4948bdcaf04f9477363e
+
+Core\DefaultSettings.lua
+Core\EventListener.lua
+Core\Initialize.lua
+Core\Localization.lua
+Core\SlashCommands.lua
+Core\UpdateInstanceType.lua
+Core\Utilities.lua
+
+Modules\BarMods.lua
+Modules\Help.lua
+Modules\HideFrames.lua
+Modules\Macros.lua
+Modules\Mods.lua
+
+RokksPowerMods.lua
