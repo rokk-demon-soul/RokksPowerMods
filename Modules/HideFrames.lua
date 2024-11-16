@@ -16,35 +16,59 @@ function addon.hideChat(hideChat)
 end
 
 function addon.hookOnShow_Visibility(frame)
-    if InCombatLockdown() then return end
     frame.RokksPowerMods = frame.RokksPowerMods ~= nil and frame.RokksPowerMods or {}
     
     function frame.RokksPowerMods.setVisibility(frame)
-        if InCombatLockdown() or not frame.RokksPowerMods then return end
+        if not frame.RokksPowerMods then return end
         local hidden = frame.RokksPowerMods.hidden == true and true or false
-        
+       
         if hidden then
+            if InCombatLockdown() then return end
             if frame.RokksPowerMods.alphaOnly then
-                frame:SetAlpha(0)
+                C_Timer.After(addon.settings.appConfig.delayTime, function()
+                    if addon.updateHideState(frame) then frame:SetAlpha(0) end
+                end)
             else
-                frame:Hide()
+                C_Timer.After(addon.settings.appConfig.delayTime, function()
+                    if addon.updateHideState(frame) then frame:Hide() end
+                end)
             end
-        elseif frame.RokksPowerMods.allowShow then
+        else
             frame:SetAlpha(1)
-            frame:Show()
+            if frame.RokksPowerMods.allowShow then frame:Show() end
         end
     end
     
     frame.resetParent = addon.resetParent
-    frame:UnregisterEvent("UNIT_PET")
+    -- frame:UnregisterEvent("UNIT_PET")
     frame:HookScript("OnShow", frame.RokksPowerMods.setVisibility)
 end
 
-function addon.setFrameVisibility(name, state, preventShow, alphaOnly)
+function addon.updateHideState(frame)
+    local visible = frame:IsShown()
+
+    local inCombat = InCombatLockdown()
+    --local protected = frame:IsProtected()
+    --print(tostring(frame:GetDebugName()) .. " protected: " .. tostring(protected))
+    local outOfSync = visible and not hidden or not visible and hidden
+    
+    return not inCombat and outOfSync
+end
+
+function addon.setFrameVisibility(name, state, options)
     if InCombatLockdown() then return end
     
-    local frame = _G[name]
+    local preventShow, alphaOnly
 
+    if options then
+        preventShow = options.preventShow
+        alphaOnly = options.alphaOnly
+    else
+        preventShow = false
+        alphaOnly = false
+    end
+
+    local frame = _G[name]
     if not frame then return end
     
     frame.RokksPowerMods = frame.RokksPowerMods ~= nil and frame.RokksPowerMods or {}
@@ -56,28 +80,33 @@ function addon.setFrameVisibility(name, state, preventShow, alphaOnly)
     frame.RokksPowerMods.hidden = state == "hide" and true or false
     frame.RokksPowerMods.alphaOnly = alphaOnly
     frame.RokksPowerMods.allowShow = not preventShow
+    frame.RokksPowerMods.frameName = name
     
     frame.RokksPowerMods.setVisibility(frame)
 end
 
 function addon.hidePlayerFrame(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("PlayerFrame", state, false, true)
+    local options = { preventShow = false, alphaOnly = true }
+    addon.setFrameVisibility("PlayerFrame", state, options)
 end
 
 function addon.hideTargetFrame(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("TargetFrame", state, true, true)
+    local options = { preventShow = true, alphaOnly = true }
+    addon.setFrameVisibility("TargetFrame", state, options)
 end
 
 function addon.hideFocusFrame(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("FocusFrame", state, true, true)
+    local options = { preventShow = true, alphaOnly = true }
+    addon.setFrameVisibility("FocusFrame", state, options)
 end
 
 function addon.hidePetFrame(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("PetFrame", state, true, true)
+    local options = { preventShow = true, alphaOnly = true }
+    addon.setFrameVisibility("PetFrame", state, options)
 end
 
 function addon.hideMicroMenu(hide)
@@ -109,36 +138,53 @@ end
 
 function addon.hideGroupFinderEyeball(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("QueueStatusButton", state, true, true)
+    local options = { preventShow = false, alphaOnly = true }
+    addon.setFrameVisibility("QueueStatusButton", state, options)
 end
 
 function addon.hidePartyFrames(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("PartyFrame", state, true)
+    local options = { preventShow = true, alphaOnly = false }
+    addon.setFrameVisibility("PartyFrame", state, options)
 end
 
 function addon.hideRaidFrames(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("CompactRaidGroup1", state, true)
-    addon.setFrameVisibility("CompactRaidGroup2", state, true)
-    addon.setFrameVisibility("CompactRaidGroup3", state, true)
-    addon.setFrameVisibility("CompactRaidGroup4", state, true)
-    addon.setFrameVisibility("CompactRaidGroup5", state, true)
-    addon.setFrameVisibility("CompactRaidGroup6", state, true)
-    addon.setFrameVisibility("CompactRaidGroup7", state, true)
-    addon.setFrameVisibility("CompactRaidGroup8", state, true)
+    local options = { preventShow = true, alphaOnly = false }
+    addon.setFrameVisibility("CompactRaidGroup1", state, options)
+    addon.setFrameVisibility("CompactRaidGroup2", state, options)
+    addon.setFrameVisibility("CompactRaidGroup3", state, options)
+    addon.setFrameVisibility("CompactRaidGroup4", state, options)
+    addon.setFrameVisibility("CompactRaidGroup5", state, options)
+    addon.setFrameVisibility("CompactRaidGroup6", state, options)
+    addon.setFrameVisibility("CompactRaidGroup7", state, options)
+    addon.setFrameVisibility("CompactRaidGroup8", state, options)
 end
+
+-- function addon.hideRaidFrameManager(hide)
+--     local state = hide == true and "hide" or "show"
+--     addon.setFrameVisibility("CompactRaidFrameManager", state, true)
+-- end
 
 function addon.hideBossFrames(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("Boss1TargetFrame", state, true)
-    addon.setFrameVisibility("Boss2TargetFrame", state, true)
-    addon.setFrameVisibility("Boss3TargetFrame", state, true)
-    addon.setFrameVisibility("Boss4TargetFrame", state, true)
-    addon.setFrameVisibility("Boss5TargetFrame", state, true)
+    local options = { preventShow = true, alphaOnly = false }
+    addon.setFrameVisibility("Boss1TargetFrame", state, options)
+    addon.setFrameVisibility("Boss2TargetFrame", state, options)
+    addon.setFrameVisibility("Boss3TargetFrame", state, options)
+    addon.setFrameVisibility("Boss4TargetFrame", state, options)
+    addon.setFrameVisibility("Boss5TargetFrame", state, options)
 end
 
-function addon.arenaEnemyFrames(hide)
+function addon.hideEnemyArenaFrames(hide)
     local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("CompactArenaFrame", state, true)
+    local options = { preventShow = true, alphaOnly = false }
+    addon.setFrameVisibility("CompactArenaFrame", state, options)
+end
+
+function addon.hideStatusBar(hide)
+    local state = hide == true and "hide" or "show"
+    local options = { preventShow = true, alphaOnly = false }
+    addon.setFrameVisibility("MainStatusTrackingBarContainer", state, options)
+    addon.setFrameVisibility("MainStatusTrackingBar", state, options)
 end

@@ -1,53 +1,48 @@
 local addonName, addon = ...
 
-function addon.powerMacros(enable)
+function addon.arenaHealerMacros(enabled)
+    if not enabled then
+        addon.arenaHealerInitialized = false
+        return
+    end
+
     if InCombatLockdown() then return end
     local enableMacros = enable == true and true or false    
     
-    if enableMacros then
-        local friendlyHealer, friendlyTank = addon.getPartyUnits()
-        local enemyHealer = addon.getArenaUnits()
-        
-        if friendlyHealer == nil and
-        friendlyTank == nil and
-        enemyHealer == nil 
-        then return
-        end
-
-        for index = 1, 138 do
-            local name, icon, body = GetMacroInfo(index)
-            if friendlyHealer ~= nil then addon.updateMacro("@friendlyHealer", friendlyHealer, index, name, icon, body) end
-            if friendlyTank ~= nil then addon.updateMacro("@friendlyTank", friendlyTank, index, name, icon, body) end
-            if enemyHealer ~= nil then addon.updateMacro("@enemyHealer", enemyHealer, index, name, icon, body) end
-        end
-    else
-        if addon.settings.changedMacros == nil then return end
-
-        for index, macro in pairs(addon.settings.changedMacros) do
-            EditMacro(macro.index, macro.name, macro.icon, macro.body)
-        end
+    local enemyHealer, tank, dps = addon.getArenaUnits()
+    local friendlyHealer, friendlytank, friendlydps = addon.getPartyUnits()
     
-        addon.settings.changedMacros = nil    
+    enemyHealer = enemyHealer ~= nil and enemyHealer or "arena3"
+    friendlyHealer = friendlyHealer ~= nil and friendlyHealer or "party2"
+
+    if not addon.arenaHealerInitialized then
+        addon.print("Updating enemy healer macros to " .. enemyHealer)
+        addon.print("Updating friendly healer macros to " .. friendlyHealer)
     end
+    
+    for index = 1, 200 do
+        name, icon, body = GetMacroInfo(index)
+
+        if name ~= nil then
+            addon.updateMacro("arena1", "" .. enemyHealer, index, name, nil, body)
+            addon.updateMacro("arena2", "" .. enemyHealer, index, name, nil, body)
+            addon.updateMacro("arena3", "" .. enemyHealer, index, name, nil, body)
+
+            addon.updateMacro("party1", "" .. friendlyHealer, index, name, nil, body)
+            addon.updateMacro("party2", "" .. friendlyHealer, index, name, nil, body)            
+        end
+    end
+
+    addon.arenaHealerInitialized = true
 end
 
 function addon.updateMacro(tag, unit, index, name, icon, body)
-    unit = "@" .. unit
-
     if InCombatLockdown() or
        tag == nil or unit == nil or index == nil or name == nil or body == nil or
        not body:find(tag) then return
     end
 
-    local macroInfo = {
-        ["index"] = index,
-        ["name"] = name,
-        ["icon"] = icon,
-        ["body"] = body
-    }
-
-    addon.settings.changedMacros = addon.settings.changedMacros ~= nil and addon.settings.changedMacros or {}
-    table.insert(addon.settings.changedMacros, macroInfo)
+    if body:find("#ignore") then return end
 
     body = body:gsub(tag, unit)
     EditMacro(index, name, icon, body)

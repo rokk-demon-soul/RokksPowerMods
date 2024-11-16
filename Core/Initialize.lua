@@ -1,5 +1,7 @@
 local addonName, addon = ...
 
+RokksPowerMods = {}
+
 function addon.initialize()
     if addon.initialized then return end
     
@@ -7,17 +9,16 @@ function addon.initialize()
     addon.setLocalization()
     addon.registerSlashCommands()
 
-    RokksPowerMods = {}
-
     addon.initialized = true
 end
 
 function addon.loadSettings()
-    -- Load settings from saved variables
-    -- if aba7a9aba1ec4948bdcaf04f9477363e == nil then
-    --     aba7a9aba1ec4948bdcaf04f9477363e = addon.copy(addon.defaultSettings)
+    -- Uncomment to load settings from saved variables
+
+    -- if RokksPowerModsData == nil then
+    --     RokksPowerModsData = addon.copy(addon.defaultSettings)
     -- end
-    -- addon.settings = aba7a9aba1ec4948bdcaf04f9477363e
+    -- addon.settings = RokksPowerModsData
 
     addon.settings = addon.copy(addon.defaultSettings)
 end

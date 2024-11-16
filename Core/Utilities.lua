@@ -1,26 +1,31 @@
 local addonName, addon = ...
 
-function aba7a9aba1ec4948bdcaf04f9477363e_func()
+function RokksPowerMods_func()
     addon.help()
 end
 
 function addon.debug(var, name)
     if type(var) == "string" then
         local output = name ~= nil and name .. ": " .. var or var
-        print(output)
+        print("\124cffDB09FEDebug: \124cffBAFF1A" .. output)
         return
     end
     
     local name = name ~= nil and name or nil
     if type(var) == "table" then
         local tableName = string.gsub(tostring(var), "table: ", "")
-        print(tostring(name) .. " (" .. tableName .. ") {")
+        print("\124cffDB09FE" .. tostring(name) .. " (" .. tableName .. ") {")
         for k, v in pairs(var) do
-            print("  " .. tostring(k) .. ": " .. tostring(v))
+            print("  \124cffBAFF1A" .. tostring(k) .. ": " .. tostring(v))
         end
-        print("}")
+        print("\124cffDB09FE}")
     else
-        local debugString = name == nil and tostring(var) or name .. ": " .. tostring(var)
+        local debugString
+        if name == nil then
+            debugString = "\124cffDB09FEDebug: \124cffBAFF1A" .. tostring(var)
+        else
+            debugString = "\124cffDB09FE" .. tostring(name) .. ": \124cffBAFF1A" .. tostring(var)
+        end
         print(debugString)
     end
 end

@@ -4,14 +4,15 @@ addon.defaultSettings = {
     ["appConfig"] = {
         ["delayTime"] = .5,
     },
+    
     ["global"] = {
         ["fadeMapWhileMoving"] = false,
-        ["maxCameraZoom"] = true,
+        ["cameraZoom"] = 2,
         ["autoPushSpellsToActionBar"] = false,
         ["enableIndirectCamera"] = true,
         ["autoCollapseBuffs"] = true,
 
-        ["hideButtonGlows"] = false,
+        ["hideButtonGlows"] = true,
         ["hideButtonCastAnimation"] = true,
         ["hideButtonMacroText"] = true,
         ["hideButtonHotkeyText"] = true,
@@ -30,31 +31,55 @@ addon.defaultSettings = {
         ["hidePartyFrames"] = false,
         ["hideRaidFrames"] = false,
         ["hideBossFrames"] = false,
-        ["arenaEnemyFrames"] = false,
+        ["hideEnemyArenaFrames"] = false,
+        ["hideStatusBar"] = false,
+        ["fadeBar1"] = false,
+        ["fadeBar2"] = false,
+        ["fadeBar3"] = false,
+        ["fadeBar4"] = false,
+        ["fadeBar5"] = false,
+        ["fadeBar6"] = true,
+        ["fadeBar7"] = false,
+        ["fadeBar8"] = false,
+        ["fadePetbar"] = true,
 
-        ["powerMacros"] = false,
+        ["resizeTransmogFrame"] = 1.6,
+        ["resizeCollectionsJournal"] = 1.6,
+
+        ["arenaHealerMacros"] = false,
     },
 
     ["arena"] = {
+        ["cameraZoom"] = 1.6,
         ["hideQuestFrame"] = true,
         ["hideZoneMap"] = true,
-        ["hideMinimap"] = true,
         ["hideGroupFinderEyeball"] = true,
-
-        ["powerMacros"] = true,
+        ["hidePartyFrames"] = true,
+        ["hideEnemyArenaFrames"] = true,
+        ["arenaHealerMacros"] = true,
+        ["hideStatusBar"] = true,
+        ["hideMinimap"] = true,
+        ["hideChat"] = false,
     },
 
     ["battleground"] = {
-        ["hideRaidFrames"] = false,
+        ["hideRaidFrames"] = true,
+        ["hideMinimap"] = true,
+        ["hideGroupFinderEyeball"] = false,
+        ["hideQuestFrame"] = true,
+        ["cameraZoom"] = 2,
+        ["hideChat"] = false,
     },
 
     ["dungeon"] = {
-        ["hideZoneMap"] = true,
-        ["powerMacros"] = true,
+        ["cameraZoom"] = 2,
+        ["hideZoneMap"] = false,
         ["hideGroupFinderEyeball"] = true,
+        ["arenaHealerMacros"] = true,
     },
 
     ["raid"] = {
+        ["cameraZoom"] = 2.6,
     },
 
     ["world"] = {

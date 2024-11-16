@@ -12,6 +12,7 @@ function addon.registerEvents()
     addon.eventFrame:RegisterEvent("ARENA_PREP_OPPONENT_SPECIALIZATIONS")
     addon.eventFrame:RegisterEvent("ARENA_OPPONENT_UPDATE")
     addon.eventFrame:RegisterEvent("PLAYER_ROLES_ASSIGNED")
+    addon.eventFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
 
     addon.eventFrame:SetScript("OnEvent", addon.routeEvent)
 end
@@ -25,6 +26,11 @@ function addon.routeEvent(self, event, ...)
             addon.initialize()
             addon.updateInstanceType()
         end
+    end
+
+    if event == "PLAYER_TARGET_CHANGED" then
+        if not addon.initialized then return end
+        addon.updateInstanceType() 
     end
 
     if event == "PVP_MATCH_ACTIVE" or "ARENA_PREP_OPPONENT_SPECIALIZATIONS" or "ARENA_OPPONENT_UPDATE" then
