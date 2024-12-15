@@ -5,13 +5,13 @@ function addon.fadeMapWhileMoving(fade)
     SetCVar("mapFade", mapFade)
 end
 
-function addon.cameraZoom(zoom)
-    -- max 2.6
-    local maxZoom = maxZoom and "2.6" or GetCVarDefault("cameraDistanceMaxZoomFactor")
-    zoom = zoom ~= nil and zoom or 1
-    SetCVar("cameraDistanceMaxZoomFactor", zoom)
-    CameraZoomOut(50)
-end
+-- function addon.cameraZoom(zoom)
+--     -- max 2.6
+--     local maxZoom = maxZoom and "2.6" or GetCVarDefault("cameraDistanceMaxZoomFactor")
+--     zoom = zoom ~= nil and zoom or 1
+--     SetCVar("cameraDistanceMaxZoomFactor", zoom)
+--     CameraZoomOut(50)
+-- end
 
 function addon.autoPushSpellsToActionBar(autoPush)
     local autoPush = flag == true and "1" or "0"

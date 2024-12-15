@@ -109,17 +109,17 @@ function addon.hidePetFrame(hide)
     addon.setFrameVisibility("PetFrame", state, options)
 end
 
-function addon.hideMicroMenu(hide)
-    local state = hide == true and "hide" or "show"
+-- function addon.hideMicroMenu(hide)
+--     local state = hide == true and "hide" or "show"
 
-    QueueStatusButton:SetParent(UIParent)
-    addon.setFrameVisibility("MicroMenuContainer", state)
-end
+--     QueueStatusButton:SetParent(UIParent)
+--     addon.setFrameVisibility("MicroMenuContainer", state)
+-- end
 
-function addon.hideBagsBar(hide)
-    local state = hide == true and "hide" or "show"
-    addon.setFrameVisibility("BagsBar", state)
-end
+-- function addon.hideBagsBar(hide)
+--     local state = hide == true and "hide" or "show"
+--     addon.setFrameVisibility("BagsBar", state)
+-- end
 
 function addon.hideQuestFrame(hide)
     local state = hide == true and "hide" or "show"
@@ -136,11 +136,11 @@ function addon.hideMinimap(hide)
     addon.setFrameVisibility("MinimapCluster", state)
 end
 
-function addon.hideGroupFinderEyeball(hide)
-    local state = hide == true and "hide" or "show"
-    local options = { preventShow = false, alphaOnly = true }
-    addon.setFrameVisibility("QueueStatusButton", state, options)
-end
+-- function addon.hideGroupFinderEyeball(hide)
+--     local state = hide == true and "hide" or "show"
+--     local options = { preventShow = false, alphaOnly = true }
+--     addon.setFrameVisibility("QueueStatusButton", state, options)
+-- end
 
 function addon.hidePartyFrames(hide)
     local state = hide == true and "hide" or "show"
@@ -182,9 +182,9 @@ function addon.hideEnemyArenaFrames(hide)
     addon.setFrameVisibility("CompactArenaFrame", state, options)
 end
 
-function addon.hideStatusBar(hide)
-    local state = hide == true and "hide" or "show"
-    local options = { preventShow = true, alphaOnly = false }
-    addon.setFrameVisibility("MainStatusTrackingBarContainer", state, options)
-    addon.setFrameVisibility("MainStatusTrackingBar", state, options)
-end
+-- function addon.hideStatusBar(hide)
+--     local state = hide == true and "hide" or "show"
+--     local options = { preventShow = true, alphaOnly = false }
+--     addon.setFrameVisibility("MainStatusTrackingBarContainer", state, options)
+--     addon.setFrameVisibility("MainStatusTrackingBar", state, options)
+-- end

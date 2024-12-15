@@ -24,18 +24,18 @@ function addon.resizeAllFrames()
     end
 end
 
-function addon.resizeTransmogFrame(scale)
-    local scale = scale == nil and 1 or scale
-    addon.resizeFrameList["WardrobeFrame"] = {}
-    addon.resizeFrameList["WardrobeFrame"].scale = scale
-    addon.resizeFrameList["WardrobeFrame"].resize = true
-end
+-- function addon.resizeTransmogFrame(scale)
+--     local scale = scale == nil and 1 or scale
+--     addon.resizeFrameList["WardrobeFrame"] = {}
+--     addon.resizeFrameList["WardrobeFrame"].scale = scale
+--     addon.resizeFrameList["WardrobeFrame"].resize = true
+-- end
 
-function addon.resizeCollectionsJournal(scale)
-    local scale = scale == nil and 1 or scale
-    addon.resizeFrameList["CollectionsJournal"] = {}
-    addon.resizeFrameList["CollectionsJournal"].scale = scale
-    addon.resizeFrameList["CollectionsJournal"].resize = true
-end
+-- function addon.resizeCollectionsJournal(scale)
+--     local scale = scale == nil and 1 or scale
+--     addon.resizeFrameList["CollectionsJournal"] = {}
+--     addon.resizeFrameList["CollectionsJournal"].scale = scale
+--     addon.resizeFrameList["CollectionsJournal"].resize = true
+-- end
 
 --C_Timer.NewTicker(.1, addon.resizeAllFrames)
