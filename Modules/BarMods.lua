@@ -11,61 +11,61 @@ addon.barConfig["Bar7"] = { ["frameName"] = "MultiBar6", ["buttonPrefix"] = "Mul
 addon.barConfig["Bar8"] = { ["frameName"] = "MultiBar7", ["buttonPrefix"] = "MultiBar7Button", ["numButtons"] = 12, ["fade"] = 1 }
 addon.barConfig["PetBar"] = { ["frameName"] = "PetActionBar", ["buttonPrefix"] = "PetActionButton", ["numButtons"] = 10, ["fade"] = 1 }
 
--- hooksecurefunc("ActionButton_ShowOverlayGlow", function(button)
---     if button.SpellActivationAlert then
---         if RokksPowerMods.hideButtonGlows
---             then button.SpellActivationAlert:Hide()
---             else button.SpellActivationAlert:Show()
---         end
---     elseif button.overlay then
---         if RokksPowerMods.hideButtonGlows
---             then button.overlay:Hide()
---             else button.overlay:Show()
---         end
---     end        
--- end)
+hooksecurefunc("ActionButton_ShowOverlayGlow", function(button)
+    if button.SpellActivationAlert then
+        if RokksPowerMods.hideButtonGlows
+            then button.SpellActivationAlert:Hide()
+            else button.SpellActivationAlert:Show()
+        end
+    elseif button.overlay then
+        if RokksPowerMods.hideButtonGlows
+            then button.overlay:Hide()
+            else button.overlay:Show()
+        end
+    end        
+end)
 
--- function addon.hideButtonGlows(hideButtonGlows)
---     RokksPowerMods.hideButtonGlows = hideButtonGlows
--- end
+function addon.hideButtonGlows(hideButtonGlows)
+    RokksPowerMods.hideButtonGlows = hideButtonGlows
+end
 
--- function addon.hideButtonCastAnimation(hideButtonCastAnimation)
---     local alpha = hideButtonCastAnimation and 0 or 1
+function addon.hideButtonCastAnimation(hideButtonCastAnimation)
+    local alpha = hideButtonCastAnimation and 0 or 1
 
---     for barName, barInfo in pairs(addon.barConfig) do
---         for i = 1, barInfo.numButtons do
---             local buttonFrameName = barInfo.buttonPrefix .. i
---             local buttonFrame = _G[buttonFrameName]
+    for barName, barInfo in pairs(addon.barConfig) do
+        for i = 1, barInfo.numButtons do
+            local buttonFrameName = barInfo.buttonPrefix .. i
+            local buttonFrame = _G[buttonFrameName]
 
---             if buttonFrame then
---                 buttonFrame.SpellCastAnimFrame:SetAlpha(alpha)
---                 buttonFrame.InterruptDisplay:SetAlpha(alpha)
---             end
---         end
---     end
--- end
+            if buttonFrame then
+                buttonFrame.SpellCastAnimFrame:SetAlpha(alpha)
+                buttonFrame.InterruptDisplay:SetAlpha(alpha)
+            end
+        end
+    end
+end
 
--- function addon.hideButtonMacroText(hide)
---     local alpha = hide == true and 0 or 1
+function addon.hideButtonMacroText(hide)
+    local alpha = hide == true and 0 or 1
 
---     for barName, barInfo in pairs(addon.barConfig) do
---         for i = 1, barInfo.numButtons do
---             local macroFrame = _G[barInfo.buttonPrefix .. i .. "Name"]        
---             if macroFrame then macroFrame:SetAlpha(alpha) end
---         end
---     end
--- end
+    for barName, barInfo in pairs(addon.barConfig) do
+        for i = 1, barInfo.numButtons do
+            local macroFrame = _G[barInfo.buttonPrefix .. i .. "Name"]        
+            if macroFrame then macroFrame:SetAlpha(alpha) end
+        end
+    end
+end
 
--- function addon.hideButtonHotkeyText(hideButtonHotkey)
---     local alpha = hideButtonHotkey and 0 or 1
+function addon.hideButtonHotkeyText(hideButtonHotkey)
+    local alpha = hideButtonHotkey and 0 or 1
 
---     for barName, barInfo in pairs(addon.barConfig) do
---         for i = 1, barInfo.numButtons do
---             local hotKeyFrame = _G[barInfo.buttonPrefix .. i .. "HotKey"]        
---             if hotKeyFrame then hotKeyFrame:SetAlpha(alpha) end
---         end
---     end
--- end
+    for barName, barInfo in pairs(addon.barConfig) do
+        for i = 1, barInfo.numButtons do
+            local hotKeyFrame = _G[barInfo.buttonPrefix .. i .. "HotKey"]        
+            if hotKeyFrame then hotKeyFrame:SetAlpha(alpha) end
+        end
+    end
+end
 
 function addon.barOnEnter(button)
     local barConfig = addon.barConfig[button.RokksPowerMods.barName]
@@ -129,38 +129,38 @@ function addon.fadeBar(barName, fade)
     end
 end
 
--- function addon.fadeBar1(fade)
---     addon.fadeBar("Bar1", fade)
--- end
+function addon.fadeBar1(fade)
+    addon.fadeBar("Bar1", fade)
+end
 
--- function addon.fadeBar2(fade)
---     addon.fadeBar("Bar2", fade)
--- end
+function addon.fadeBar2(fade)
+    addon.fadeBar("Bar2", fade)
+end
 
--- function addon.fadeBar3(fade)
---     addon.fadeBar("Bar3", fade)
--- end
+function addon.fadeBar3(fade)
+    addon.fadeBar("Bar3", fade)
+end
 
--- function addon.fadeBar4(fade)
---     addon.fadeBar("Bar4", fade)
--- end
+function addon.fadeBar4(fade)
+    addon.fadeBar("Bar4", fade)
+end
 
--- function addon.fadeBar5(fade)
---     addon.fadeBar("Bar5", fade)
--- end
+function addon.fadeBar5(fade)
+    addon.fadeBar("Bar5", fade)
+end
 
--- function addon.fadeBar6(fade)
---     addon.fadeBar("Bar6", fade)
--- end
+function addon.fadeBar6(fade)
+    addon.fadeBar("Bar6", fade)
+end
 
--- function addon.fadeBar7(fade)
---     addon.fadeBar("Bar7", fade)
--- end
+function addon.fadeBar7(fade)
+    addon.fadeBar("Bar7", fade)
+end
 
--- function addon.fadeBar8(fade)
---     addon.fadeBar("Bar8", fade)
--- end
+function addon.fadeBar8(fade)
+    addon.fadeBar("Bar8", fade)
+end
 
--- function addon.fadePetbar(fade)
---     addon.fadeBar("PetBar", fade)
--- end
+function addon.fadePetbar(fade)
+    addon.fadeBar("PetBar", fade)
+end
