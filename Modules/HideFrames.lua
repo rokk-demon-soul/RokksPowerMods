@@ -1,7 +1,9 @@
 local addonName, addon = ...
 
 function addon.hideChat(hideChat)
-    local alpha = hideChat == true and 0 or 1    
+    if InCombatLockdown() then return end
+    local disable = hideChat == true and 0 or 1
+    addon.toggleChat = hideChat
     C_Timer.After(addon.settings.appConfig.delayTime, function()
         for i = 1, NUM_CHAT_WINDOWS do
             local tab = _G["ChatFrame" .. i .. "Tab"]
@@ -9,9 +11,13 @@ function addon.hideChat(hideChat)
     
             if not tab and not window then return end
     
-            tab:SetAlpha(alpha)
-            window:SetAlpha(alpha)
-        end    
+            tab:SetAlpha(disable)
+            window:SetAlpha(disable)
+        end
+        
+        C_SocialRestrictions.SetChatDisabled(hideChat)
+        ChatConfigFrame_OnChatDisabledChanged(hideChat)
+
     end)
 end
 
@@ -90,25 +96,43 @@ end
 
 function addon.hidePlayerFrame(hide)
     local state = hide == true and "hide" or "show"
-    local options = { preventShow = false, alphaOnly = true }
+    local options = { preventShow = false }
     addon.setFrameVisibility("PlayerFrame", state, options)
+end
+
+function addon.hideBuffFrame(hide)
+    local state = hide == true and "hide" or "show"
+    local options = { preventShow = false, alphaOnly = true }
+    addon.setFrameVisibility("BuffFrame", state, options)
+end
+
+function addon.hideDebuffFrame(hide)
+    local state = hide == true and "hide" or "show"
+    local options = { preventShow = false, alphaOnly = true }
+    addon.setFrameVisibility("DebuffFrame", state, options)
+end
+
+function addon.hideBGObjectiveFrames(hide)
+    local state = hide == true and "hide" or "show"
+    local options = { preventShow = false, alphaOnly = true }
+    addon.setFrameVisibility("ArenaEnemyFramesContainer", state, options)
 end
 
 function addon.hideTargetFrame(hide)
     local state = hide == true and "hide" or "show"
-    local options = { preventShow = true, alphaOnly = true }
+    local options = { preventShow = true }
     addon.setFrameVisibility("TargetFrame", state, options)
 end
 
 function addon.hideFocusFrame(hide)
     local state = hide == true and "hide" or "show"
-    local options = { preventShow = true, alphaOnly = true }
+    local options = { preventShow = true }
     addon.setFrameVisibility("FocusFrame", state, options)
 end
 
 function addon.hidePetFrame(hide)
     local state = hide == true and "hide" or "show"
-    local options = { preventShow = true, alphaOnly = true }
+    local options = { preventShow = true }
     addon.setFrameVisibility("PetFrame", state, options)
 end
 
@@ -149,6 +173,12 @@ function addon.hidePartyFrames(hide)
     local state = hide == true and "hide" or "show"
     local options = { preventShow = true, alphaOnly = false }
     addon.setFrameVisibility("PartyFrame", state, options)
+end
+
+function addon.hideBlizzardAuras(hide)
+    local state = hide == true and "hide" or "show"
+    local options = { preventShow = true, alphaOnly = false }
+    addon.setFrameVisibility("SpellActivationOverlayFrame", state, options)
 end
 
 function addon.hideRaidFrames(hide)

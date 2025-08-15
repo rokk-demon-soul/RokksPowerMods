@@ -28,8 +28,8 @@ function addon.arenaHealerMacros(enabled)
             addon.updateMacro("arena2", "" .. enemyHealer, index, name, nil, body)
             addon.updateMacro("arena3", "" .. enemyHealer, index, name, nil, body)
 
-            addon.updateMacro("party1", "" .. friendlyHealer, index, name, nil, body)
-            addon.updateMacro("party2", "" .. friendlyHealer, index, name, nil, body)            
+            -- addon.updateMacro("party1", "" .. friendlyHealer, index, name, nil, body)
+            -- addon.updateMacro("party2", "" .. friendlyHealer, index, name, nil, body)            
         end
     end
 

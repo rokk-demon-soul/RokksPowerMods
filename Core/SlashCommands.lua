@@ -12,5 +12,15 @@ function addon.registerSlashCommands()
         if command == "" then
             addon.help()
         end
+
+        if command == "toggleChat" then
+            addon.toggleChat = not addon.toggleChat
+            addon.hideChat(addon.toggleChat)
+        end
     end
+end
+
+
+function addon.toggleChat(self, key)
+   addon.hideChat(not rpmChatHidden)
 end
